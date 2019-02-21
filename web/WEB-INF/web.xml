@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+           version="3.0">
+
+    <display-name>spring_core_study</display-name>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/application-Context.xml</param-value>
+    </context-param>
+    <listener>
+        <!--pom.xml spring-mvc 먼저 받아야함-->
+        <!--공통 bean 설정은 ContextLoaderListener 가 로딩한 ApplicationContext가 관리하게 한다.-->
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <servlet>
+        <!--DispatcherServlet은 기본으로 /WEB-INF/dispatcherServlet-servlet.xml을 찾게 된다.-->
+        <!--web layer 설정은 DispatcherServlet 가 로딩한 WebApplcationContext가 관리하게 한다.-->
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--원칙은 위 servlet-name 으로 찾지만 이름과 경로를 설정하려면 아래처럼 설정한다.-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:mvc-config.xml</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>
